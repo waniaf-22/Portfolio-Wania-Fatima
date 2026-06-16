@@ -8,7 +8,20 @@ const phrases = [
   "Media Strategist",
 ];
 
-const marqueeText = " • AI BUILDER • CREATIVE TECHNOLOGIST • MEDIA STRATEGIST • LLM ENGINEER • FULL STACK DEVELOPER • 10M+ REACH ";
+const marqueeChips = [
+  { icon: "✦",  label: "AI Builder" },
+  { icon: "◎",  label: "LLM Engineer" },
+  { icon: "⬡",  label: "Full Stack" },
+  { icon: "⚡",  label: "Prompt Expert" },
+  { icon: "◈",  label: "ML Research" },
+  { icon: "⊹",  label: "Brand Strategy" },
+  { icon: "△",  label: "Leadership" },
+  { icon: "◌",  label: "Creative Tech" },
+  { icon: "✦",  label: "10M+ Reach" },
+  { icon: "◎",  label: "Media Director" },
+  { icon: "⬡",  label: "PyTorch" },
+  { icon: "⚡",  label: "React / Next.js" },
+];
 
 const HeroSection = () => {
   const heroCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -163,7 +176,8 @@ const HeroSection = () => {
 
         {/* Eyebrow */}
         <p className="text-[0.75rem] md:text-[0.85rem] tracking-[0.4em] uppercase text-[var(--cyan)] mb-4 opacity-90 fade-in d2">
-          Portfolio — 2026
+          Portfolio
+
         </p>
 
         {/* Name */}
@@ -209,12 +223,53 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Horizontal Marquee at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 py-3 border-t border-[rgba(255,255,255,0.05)] bg-[rgba(5,5,5,0.3)] backdrop-blur-sm z-10 overflow-hidden">
-        <div className="marquee-track flex w-full">
-          <span className="text-[0.75rem] font-display font-medium text-[var(--gray)] uppercase tracking-[0.3em] whitespace-nowrap opacity-70">
-            {marqueeText}{marqueeText}{marqueeText}
-          </span>
+      {/* Pill-chip Marquee at bottom */}
+      <div
+        className="absolute bottom-0 left-0 right-0 z-10 overflow-hidden"
+        style={{
+          background: "linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(8,8,18,0.75) 100%)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          padding: "10px 0",
+        }}
+      >
+        {/* Left fade */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to right, rgba(5,5,5,0.95), transparent)" }} />
+        {/* Right fade */}
+        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to left, rgba(5,5,5,0.95), transparent)" }} />
+
+        <div className="marquee-track flex items-center gap-3" style={{ width: "max-content" }}>
+          {[...marqueeChips, ...marqueeChips, ...marqueeChips].map((chip, i) => (
+            <div
+              key={i}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "6px 18px",
+                borderRadius: "999px",
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: "rgba(255,255,255,0.04)",
+                backdropFilter: "blur(8px)",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
+              }}
+            >
+              <span style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.7rem" }}>{chip.icon}</span>
+              <span style={{
+                color: "rgba(255,255,255,0.55)",
+                fontSize: "0.75rem",
+                fontWeight: 500,
+                fontFamily: "var(--font-display)",
+                letterSpacing: "0.04em",
+              }}>
+                {chip.label}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
 
