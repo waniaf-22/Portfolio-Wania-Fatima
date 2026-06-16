@@ -3,7 +3,6 @@ const awards = [
   { icon: "fa-solid fa-star", name: "Star Performer", org: "Academic Excellence" },
   { icon: "fa-solid fa-trophy", name: "APEX Award", org: "Leadership Recognition" },
   { icon: "fa-solid fa-wand-magic-sparkles", name: "Special Mention", org: "Creative Excellence" },
-  { icon: "fa-solid fa-code", name: "Hackathon Winner", org: "Waasta AI Project" },
   { icon: "fa-solid fa-award", name: "Bronze Medal", org: "Olympiad / Runner-Up" },
 ];
 

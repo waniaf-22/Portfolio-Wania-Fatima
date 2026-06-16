@@ -14,7 +14,6 @@ const projects: Project[] = [
     name: "Waasta AI",
     desc: "An LLM-powered emergency medical routing system that dynamically connects patients to available hospitals in real time. Uses prompt engineering, live hospital APIs, and intelligent triage logic to cut emergency response time.",
     tags: ["LLMs", "Prompt Engineering", "Hospital APIs", "Emergency Routing", "Python"],
-    badge: "🏆 Hackathon Winner",
     topColor: "linear-gradient(135deg, #06b6d4, #3b82f6)",
     vizType: "neural",
   },
@@ -203,15 +202,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       {/* Top gradient bar */}
       <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: project.topColor }} />
 
-      {/* Badge */}
-      {project.badge && (
-        <span
-          className="inline-block px-3 py-1 rounded-full text-[0.7rem] text-[#fbbf24] mb-4"
-          style={{ background: "rgba(251,191,36,0.1)", border: "1px solid rgba(251,191,36,0.2)" }}
-        >
-          {project.badge}
-        </span>
-      )}
+
 
       {/* Visualization */}
       <div
