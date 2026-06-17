@@ -9,6 +9,7 @@ const FORM_ID = "YOUR_FORM_ID"; // ← replace this
 const socialLinks = [
   { icon: "⌥", label: "github.com/waniaf-22",           url: "https://github.com/waniaf-22" },
   { icon: "in", label: "linkedin.com/in/wania-fatima1",  url: "https://www.linkedin.com/in/wania-fatima1" },
+  { icon: "ig", label: "wfx.ania",                       url: "https://www.instagram.com/wfx.ania/" },
   { icon: "@",  label: "waniaf59@gmail.com",              url: "mailto:waniaf59@gmail.com" },
 ];
 
@@ -108,7 +109,7 @@ const ContactSection = () => {
 
         {/* Right — form */}
         <div
-          className="rounded-2xl p-6 md:p-8"
+          className="rounded-2xl p-6 md:p-8 lg:mt-[150px]"
           style={{ background: "rgba(12,12,22,0.85)", border: "1px solid rgba(255,255,255,0.07)", backdropFilter: "blur(20px)" }}
         >
           {/* Success state */}

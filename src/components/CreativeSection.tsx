@@ -1,10 +1,54 @@
 const creativeItems = [
-  { icon: "fa-solid fa-bullhorn", name: "FoodPapa", role: "Social Media Manager", desc: "Led social strategy, content calendar, and Meta ad campaigns for a food delivery brand. Grew engagement and built a consistent visual identity.", tags: ["Meta Ads", "Content", "Analytics"] },
-  { icon: "fa-solid fa-bolt", name: "PROCOM", role: "Director of Media & Marketing", desc: "Directed the full marketing operation for Pakistan's largest CS competition. Managed a team, designed campaign materials, and drove record reach.", tags: ["Leadership", "Branding", "Event"] },
-  { icon: "fa-solid fa-laptop-code", name: "ACM NUCES", role: "Media Manager", desc: "Managed social presence for the ACM student chapter. Produced design assets, event coverage, and grew community engagement significantly.", tags: ["Design", "Photography", "Community"] },
-  { icon: "fa-solid fa-rocket", name: "Developers Day", role: "Media & Content Lead", desc: "Led digital presence for the flagship tech event. Managed video production, motion graphics, and live social coverage during the event.", tags: ["Video", "Motion", "Live Coverage"] },
-  { icon: "fa-solid fa-lightbulb", name: "Think & Create", role: "Media Head", desc: "Headed the media division of a creative society. Directed photoshoots, mentored a team of designers, and defined the visual voice of the society.", tags: ["Direction", "Team Lead", "Mentorship"] },
-  { icon: "fa-solid fa-book", name: "Literary Club", role: "Media & Creative", desc: "Produced visual content for literary events — cover art, event posters, and social assets that matched the intellectual aesthetic of the society.", tags: ["Visual Design", "Illustration", "Copy"] },
+  { 
+    icon: "fa-solid fa-bullhorn", 
+    name: "FoodPapa", 
+    role: "Social Media Manager", 
+    desc: "Led social strategy, content calendar, and Meta ad campaigns for a food delivery brand. Grew engagement and built a consistent visual identity.", 
+    tags: ["Meta Ads", "Content", "Analytics"],
+    links: [
+      { name: "Insta", url: "https://www.instagram.com/foodpapa.pk/", icon: "fa-brands fa-instagram" },
+      { name: "FB", url: "https://www.facebook.com/Foodpapa.pk", icon: "fa-brands fa-facebook" },
+      { name: "X", url: "https://x.com/home", icon: "fa-brands fa-x-twitter" },
+      { name: "LinkedIn", url: "https://www.linkedin.com/company/foodpapa-pakistan/", icon: "fa-brands fa-linkedin" },
+      { name: "YouTube", url: "https://www.youtube.com/@FoodPapapk", icon: "fa-brands fa-youtube" }
+    ]
+  },
+  { 
+    icon: "fa-solid fa-bolt", 
+    name: "PROCOM", 
+    role: "Director Media & Promotions", 
+    desc: "Directed the full marketing operation for Pakistan's largest CS competition. Managed a team, designed campaign materials, and drove record reach.", 
+    tags: ["Leadership", "Branding", "Event"],
+    links: [
+      { name: "FB", url: "https://www.facebook.com/procom.fast/", icon: "fa-brands fa-facebook" },
+      { name: "Insta", url: "https://www.instagram.com/procom_fast/", icon: "fa-brands fa-instagram" },
+      { name: "Insta 2", url: "https://www.instagram.com/procomdaily/", icon: "fa-brands fa-instagram" },
+      { name: "LinkedIn", url: "https://www.linkedin.com/company/procom-fast/", icon: "fa-brands fa-linkedin" }
+    ]
+  },
+  { 
+    icon: "fa-solid fa-laptop-code", 
+    name: "ACM NUCES", 
+    role: "Media Manager", 
+    desc: "Managed social presence for the ACM student chapter. Produced design assets, event coverage, and grew community engagement significantly.", 
+    tags: ["Design", "Photography", "Community"],
+    links: [
+      { name: "Insta", url: "https://www.instagram.com/acmnuceskhi/", icon: "fa-brands fa-instagram" },
+      { name: "FB", url: "https://www.facebook.com/acmnuceskhi", icon: "fa-brands fa-facebook" }
+    ]
+  },
+  { 
+    icon: "fa-solid fa-rocket", 
+    name: "Developers Day", 
+    role: "Media & Content Lead", 
+    desc: "Led digital presence for the flagship tech event. Managed video production, motion graphics, and live social coverage during the event.", 
+    tags: ["Video", "Motion", "Live Coverage"],
+    links: [
+      { name: "Insta", url: "https://www.instagram.com/developersday/", icon: "fa-brands fa-instagram" },
+      { name: "FB", url: "https://www.facebook.com/DevelopersDay", icon: "fa-brands fa-facebook" },
+      { name: "LinkedIn", url: "https://www.linkedin.com/company/developersday/", icon: "fa-brands fa-linkedin" }
+    ]
+  }
 ];
 
 const CreativeSection = () => {
@@ -30,6 +74,15 @@ const CreativeSection = () => {
             <h3 className="text-[0.95rem] font-display font-semibold mb-1">{item.name}</h3>
             <div className="text-[0.78rem] text-[var(--purple)] mb-2">{item.role}</div>
             <p className="text-[0.8rem] text-[var(--gray)] leading-relaxed mb-4">{item.desc}</p>
+            {item.links && (
+              <div className="flex flex-wrap gap-3 mb-4">
+                {item.links.map(link => (
+                  <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className="text-[var(--gray)] hover:text-[#f472b6] transition-colors text-[1.1rem]">
+                    <i className={link.icon} title={link.name}></i>
+                  </a>
+                ))}
+              </div>
+            )}
             <div className="flex flex-wrap gap-1.5 mt-auto">
               {item.tags.map((tag) => (
                 <span

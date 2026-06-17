@@ -21,6 +21,14 @@ const Footer = () => (
         LinkedIn
       </a>
       <a
+        href="https://www.instagram.com/wfx.ania/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[var(--gray)] text-[0.82rem] no-underline hover:text-[var(--white)] transition-colors duration-300"
+      >
+        Instagram
+      </a>
+      <a
         href="#hero"
         className="text-[var(--gray)] text-[0.82rem] no-underline hover:text-[var(--white)] transition-colors duration-300"
       >
