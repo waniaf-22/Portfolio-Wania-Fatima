@@ -7,6 +7,8 @@ interface Project {
   badge?: string;
   topColor: string;
   vizType: "neural" | "bus" | "ml" | "asm";
+  githubUrl?: string;
+  liveDemoUrl?: string;
 }
 
 const projects: Project[] = [
@@ -16,6 +18,8 @@ const projects: Project[] = [
     tags: ["LLMs", "Prompt Engineering", "Hospital APIs", "Emergency Routing", "Python"],
     topColor: "linear-gradient(135deg, #06b6d4, #3b82f6)",
     vizType: "neural",
+    githubUrl: "https://github.com/waniaf-22/Waasta-AI",
+    liveDemoUrl: "#",
   },
   {
     name: "SwiftBus",
@@ -23,6 +27,7 @@ const projects: Project[] = [
     tags: ["Booking System", "REST APIs", "Database Design", "Full Stack"],
     topColor: "linear-gradient(135deg, #8b5cf6, #ec4899)",
     vizType: "bus",
+    githubUrl: "https://github.com/waniaf-22/SwiftBus",
   },
   {
     name: "Movie Recommendation System",
@@ -30,6 +35,7 @@ const projects: Project[] = [
     tags: ["PyTorch", "Collaborative Filtering", "Machine Learning", "Embeddings"],
     topColor: "linear-gradient(90deg, #ec4899, #f97316)",
     vizType: "ml",
+    githubUrl: "https://github.com/waniaf-22/Movie-Recommendation",
   },
   {
     name: "Parking Management System",
@@ -37,6 +43,7 @@ const projects: Project[] = [
     tags: ["x86 Assembly", "Low-Level Programming", "Hardware Interrupts"],
     topColor: "linear-gradient(90deg, #10b981, #06b6d4)",
     vizType: "asm",
+    githubUrl: "https://github.com/waniaf-22/Parking-Management",
   },
 ];
 
@@ -219,7 +226,22 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
       <h3 className="text-xl font-display font-bold mb-2">{project.name}</h3>
       <p className="text-[0.88rem] text-[var(--lg)] leading-relaxed mb-6">{project.desc}</p>
-      <div className="flex flex-wrap gap-1.5">
+      
+      {/* Links */}
+      <div className="flex gap-4 mb-6">
+        {project.githubUrl && (
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-[0.85rem] text-[var(--lg)] hover:text-white transition-colors flex items-center gap-2">
+            <i className="fa-brands fa-github text-[1.05rem]"></i> Code
+          </a>
+        )}
+        {project.liveDemoUrl && (
+          <a href={project.liveDemoUrl} target="_blank" rel="noopener noreferrer" className="text-[0.85rem] text-[var(--cyan)] hover:text-[#22d3ee] transition-colors flex items-center gap-2">
+            <i className="fa-solid fa-arrow-up-right-from-square text-[0.9rem]"></i> Live Demo
+          </a>
+        )}
+      </div>
+
+      <div className="flex flex-wrap gap-1.5 mt-auto">
         {project.tags.map((tag) => (
           <span
             key={tag}
