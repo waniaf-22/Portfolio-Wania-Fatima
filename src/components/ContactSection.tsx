@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 // 1. Go to https://formspree.io → Sign up free
 // 2. Click "New Form" → enter waniaf59@gmail.com
 // 3. Copy the form ID from the URL (e.g. "xabc1234") and paste below
-const FORM_ID = "YOUR_FORM_ID"; // ← replace this
+const FORM_ID = "xkoalwko"; // ← replace this
 
 const socialLinks = [
   { icon: "⌥", label: "github.com/waniaf-22",           url: "https://github.com/waniaf-22" },
