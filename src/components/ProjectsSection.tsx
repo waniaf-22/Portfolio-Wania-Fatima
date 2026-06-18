@@ -19,7 +19,7 @@ const projects: Project[] = [
     topColor: "linear-gradient(135deg, #06b6d4, #3b82f6)",
     vizType: "neural",
     githubUrl: "https://github.com/waniaf-22/Waasta-AI",
-    liveDemoUrl: "#",
+    liveDemoUrl: "https://waasta.vercel.app/",
   },
   {
     name: "SwiftBus",
@@ -27,7 +27,7 @@ const projects: Project[] = [
     tags: ["Booking System", "REST APIs", "Database Design", "Full Stack"],
     topColor: "linear-gradient(135deg, #8b5cf6, #ec4899)",
     vizType: "bus",
-    githubUrl: "https://github.com/waniaf-22/SwiftBus",
+    githubUrl: "https://github.com/waniaf-22/SwiftBus-SE-Project",
   },
   {
     name: "Movie Recommendation System",
@@ -35,7 +35,7 @@ const projects: Project[] = [
     tags: ["PyTorch", "Collaborative Filtering", "Machine Learning", "Embeddings"],
     topColor: "linear-gradient(90deg, #ec4899, #f97316)",
     vizType: "ml",
-    githubUrl: "https://github.com/waniaf-22/Movie-Recommendation",
+    githubUrl: "https://github.com/waniaf-22/Movie-Recommendation-system",
   },
   {
     name: "Parking Management System",
@@ -43,7 +43,7 @@ const projects: Project[] = [
     tags: ["x86 Assembly", "Low-Level Programming", "Hardware Interrupts"],
     topColor: "linear-gradient(90deg, #10b981, #06b6d4)",
     vizType: "asm",
-    githubUrl: "https://github.com/waniaf-22/Parking-Management",
+    githubUrl: "https://github.com/waniaf-22/Parking-Management-System",
   },
 ];
 

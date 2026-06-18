@@ -11,6 +11,7 @@ import CreativeSection from "@/components/CreativeSection";
 import LeadershipSection from "@/components/LeadershipSection";
 import GithubSection from "@/components/GithubSection";
 import ExperienceSection from "@/components/ExperienceSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import EducationSection from "@/components/EducationSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -41,6 +42,8 @@ const Index = () => (
     <GithubSection />
     <Divider />
     <ExperienceSection />
+    <Divider />
+    <TestimonialsSection />
     <Divider />
     <EducationSection />
     <Divider />
