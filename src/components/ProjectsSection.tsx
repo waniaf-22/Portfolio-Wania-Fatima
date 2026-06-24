@@ -13,22 +13,6 @@ interface Project {
 
 const projects: Project[] = [
   {
-    name: "Neon Tetris",
-    desc: "A premium, high-performance Tetris game built from scratch in C++ using Raylib. Implements Object-Oriented Design (OOP) and features vibrant neon aesthetics, screen shake effects, particle systems, procedural sound synthesis, and responsive DAS/ARR key-repeat controls.",
-    tags: ["C++", "Raylib", "Object-Oriented Programming (OOP)", "Game Physics", "Audio Synthesis"],
-    topColor: "linear-gradient(135deg, #ec4899, #8b5cf6)",
-    vizType: "tetris",
-    githubUrl: "https://github.com/waniaf-22/cpp-neon-tetris-raylib",
-  },
-  {
-    name: "PixelForge Compiler",
-    desc: "A browser-based IDE and 6-phase compiler for a custom retro pixel-art DSL. Lexes, parses (recursive-descent AST), validates semantics, generates IR, runs dead-code optimization, and target-executes on an HTML5 Canvas VM.",
-    tags: ["Compiler Design", "Domain-Specific Languages (DSLs)", "Python / Flask", "HTML5 Canvas VM", "JavaScript"],
-    topColor: "linear-gradient(135deg, #a78bfa, #ec4899)",
-    vizType: "compiler",
-    githubUrl: "https://github.com/waniaf-22/PixelForge-Compiler",
-  },
-  {
     name: "Waasta AI",
     desc: "An LLM-powered emergency medical routing system that dynamically connects patients to available hospitals in real time. Uses prompt engineering, live hospital APIs, and intelligent triage logic to cut emergency response time.",
     tags: ["LLMs", "Prompt Engineering", "Hospital APIs", "Emergency Routing", "Python"],
@@ -52,6 +36,22 @@ const projects: Project[] = [
     topColor: "linear-gradient(90deg, #ec4899, #f97316)",
     vizType: "ml",
     githubUrl: "https://github.com/waniaf-22/Movie-Recommendation-system",
+  },
+  {
+    name: "Neon Tetris",
+    desc: "A premium, high-performance Tetris game built from scratch in C++ using Raylib. Implements Object-Oriented Design (OOP) and features vibrant neon aesthetics, screen shake effects, particle systems, procedural sound synthesis, and responsive DAS/ARR key-repeat controls.",
+    tags: ["C++", "Raylib", "Object-Oriented Programming (OOP)", "Game Physics", "Audio Synthesis"],
+    topColor: "linear-gradient(135deg, #ec4899, #8b5cf6)",
+    vizType: "tetris",
+    githubUrl: "https://github.com/waniaf-22/cpp-neon-tetris-raylib",
+  },
+  {
+    name: "PixelForge Compiler",
+    desc: "A browser-based IDE and 6-phase compiler for a custom retro pixel-art DSL. Lexes, parses (recursive-descent AST), validates semantics, generates IR, runs dead-code optimization, and target-executes on an HTML5 Canvas VM.",
+    tags: ["Compiler Design", "Domain-Specific Languages (DSLs)", "Python / Flask", "HTML5 Canvas VM", "JavaScript"],
+    topColor: "linear-gradient(135deg, #a78bfa, #ec4899)",
+    vizType: "compiler",
+    githubUrl: "https://github.com/waniaf-22/PixelForge-Compiler",
   },
   {
     name: "Parking Management System",
