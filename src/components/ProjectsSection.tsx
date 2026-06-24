@@ -6,18 +6,34 @@ interface Project {
   tags: string[];
   badge?: string;
   topColor: string;
-  vizType: "neural" | "bus" | "ml" | "asm";
+  vizType: "neural" | "bus" | "ml" | "asm" | "compiler" | "tetris" | "emergency";
   githubUrl?: string;
   liveDemoUrl?: string;
 }
 
 const projects: Project[] = [
   {
+    name: "Neon Tetris",
+    desc: "A premium, high-performance Tetris game built from scratch in C++ using Raylib. Implements Object-Oriented Design (OOP) and features vibrant neon aesthetics, screen shake effects, particle systems, procedural sound synthesis, and responsive DAS/ARR key-repeat controls.",
+    tags: ["C++", "Raylib", "Object-Oriented Programming (OOP)", "Game Physics", "Audio Synthesis"],
+    topColor: "linear-gradient(135deg, #ec4899, #8b5cf6)",
+    vizType: "tetris",
+    githubUrl: "https://github.com/waniaf-22/cpp-neon-tetris-raylib",
+  },
+  {
+    name: "PixelForge Compiler",
+    desc: "A browser-based IDE and 6-phase compiler for a custom retro pixel-art DSL. Lexes, parses (recursive-descent AST), validates semantics, generates IR, runs dead-code optimization, and target-executes on an HTML5 Canvas VM.",
+    tags: ["Compiler Design", "Domain-Specific Languages (DSLs)", "Python / Flask", "HTML5 Canvas VM", "JavaScript"],
+    topColor: "linear-gradient(135deg, #a78bfa, #ec4899)",
+    vizType: "compiler",
+    githubUrl: "https://github.com/waniaf-22/PixelForge-Compiler",
+  },
+  {
     name: "Waasta AI",
     desc: "An LLM-powered emergency medical routing system that dynamically connects patients to available hospitals in real time. Uses prompt engineering, live hospital APIs, and intelligent triage logic to cut emergency response time.",
     tags: ["LLMs", "Prompt Engineering", "Hospital APIs", "Emergency Routing", "Python"],
     topColor: "linear-gradient(135deg, #06b6d4, #3b82f6)",
-    vizType: "neural",
+    vizType: "emergency",
     githubUrl: "https://github.com/waniaf-22/Waasta-AI",
     liveDemoUrl: "https://waasta.vercel.app/",
   },
@@ -92,6 +108,116 @@ function useNeuralViz(ref: React.RefObject<HTMLDivElement | null>) {
       }
       animId = requestAnimationFrame(animate);
     };
+    animate();
+    return () => cancelAnimationFrame(animId);
+  }, [ref]);
+}
+
+function useEmergencyViz(ref: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const container = ref.current;
+    if (!container) return;
+    const canvas = document.createElement("canvas");
+    canvas.width = container.offsetWidth || 400;
+    canvas.height = 80;
+    container.innerHTML = "";
+    container.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animId: number;
+    let t = 0;
+
+    const patient = { x: 50, y: 40 };
+    const hospitals = [
+      { x: 210, y: 25, active: true },
+      { x: 330, y: 55, active: false }
+    ];
+
+    const animate = () => {
+      t++;
+      ctx.clearRect(0, 0, canvas.width, 80);
+      ctx.fillStyle = "rgba(10, 10, 20, 0.15)";
+      ctx.fillRect(0, 0, canvas.width, 80);
+
+      // Draw map routes (thin dashed lines)
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      hospitals.forEach(h => {
+        ctx.beginPath();
+        ctx.moveTo(patient.x, patient.y);
+        ctx.lineTo(h.x, h.y);
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
+
+      // Draw SOS pulsing rings around Patient
+      const pulseRadius = (t % 60) * 0.8;
+      const opacity = 1 - (t % 60) / 60;
+      ctx.strokeStyle = `rgba(239, 68, 68, ${opacity})`;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(patient.x, patient.y, pulseRadius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Draw Patient node (red dot)
+      ctx.fillStyle = "#ef4444";
+      ctx.beginPath();
+      ctx.arc(patient.x, patient.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "7px sans-serif";
+      ctx.fillText("SOS", patient.x - 6, patient.y - 8);
+
+      // Draw Hospitals
+      hospitals.forEach((h, idx) => {
+        const size = 12;
+        ctx.fillStyle = "rgba(6, 182, 212, 0.15)";
+        ctx.strokeStyle = h.active && Math.sin(t * 0.1) > 0 ? "#06b6d4" : "rgba(6, 182, 212, 0.4)";
+        ctx.lineWidth = 1;
+        ctx.fillRect(h.x - size/2, h.y - size/2, size, size);
+        ctx.strokeRect(h.x - size/2, h.y - size/2, size, size);
+
+        ctx.strokeStyle = "#06b6d4";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(h.x - 3, h.y); ctx.lineTo(h.x + 3, h.y);
+        ctx.moveTo(h.x, h.y - 3); ctx.lineTo(h.x, h.y + 3);
+        ctx.stroke();
+
+        ctx.fillStyle = "rgba(255,255,255,0.4)";
+        ctx.font = "7px sans-serif";
+        ctx.fillText(`HOSPITAL ${idx + 1}`, h.x - 22, h.y - 8);
+      });
+
+      // Draw Ambulance moving along active route
+      const activeHosp = hospitals[0];
+      const duration = 180;
+      const progress = (t % duration) / duration;
+      const ambX = patient.x + (activeHosp.x - patient.x) * progress;
+      const ambY = patient.y + (activeHosp.y - patient.y) * progress;
+
+      // Glow effect for ambulance
+      ctx.shadowColor = "#06b6d4";
+      ctx.shadowBlur = 8;
+      ctx.fillStyle = "#06b6d4";
+      ctx.beginPath();
+      ctx.arc(ambX, ambY, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Tail
+      ctx.fillStyle = "rgba(6, 182, 212, 0.4)";
+      ctx.beginPath();
+      const tailX = patient.x + (activeHosp.x - patient.x) * Math.max(0, progress - 0.05);
+      const tailY = patient.y + (activeHosp.y - patient.y) * Math.max(0, progress - 0.05);
+      ctx.arc(tailX, tailY, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      animId = requestAnimationFrame(animate);
+    };
+
     animate();
     return () => cancelAnimationFrame(animId);
   }, [ref]);
@@ -179,6 +305,134 @@ function useMLViz(ref: React.RefObject<HTMLDivElement | null>) {
   }, [ref]);
 }
 
+function useCompilerViz(ref: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const container = ref.current;
+    if (!container) return;
+    const canvas = document.createElement("canvas");
+    canvas.width = container.offsetWidth || 400;
+    canvas.height = 80;
+    container.innerHTML = "";
+    container.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // A space invader alien pixel art drawing template
+    const pixels = [
+      {x: 2, y: 0}, {x: 8, y: 0},
+      {x: 3, y: 1}, {x: 7, y: 1},
+      {x: 2, y: 2}, {x: 3, y: 2}, {x: 4, y: 2}, {x: 5, y: 2}, {x: 6, y: 2}, {x: 7, y: 2}, {x: 8, y: 2},
+      {x: 1, y: 3}, {x: 2, y: 3}, {x: 4, y: 3}, {x: 5, y: 3}, {x: 6, y: 3}, {x: 8, y: 3}, {x: 9, y: 3},
+      {x: 0, y: 4}, {x: 1, y: 4}, {x: 2, y: 4}, {x: 3, y: 4}, {x: 4, y: 4}, {x: 5, y: 4}, {x: 6, y: 4}, {x: 7, y: 4}, {x: 8, y: 4}, {x: 9, y: 4}, {x: 10, y: 4},
+      {x: 0, y: 5}, {x: 2, y: 5}, {x: 3, y: 5}, {x: 4, y: 5}, {x: 5, y: 5}, {x: 6, y: 5}, {x: 7, y: 5}, {x: 8, y: 5}, {x: 10, y: 5},
+      {x: 0, y: 6}, {x: 2, y: 6}, {x: 8, y: 6}, {x: 10, y: 6},
+      {x: 3, y: 7}, {x: 4, y: 7}, {x: 6, y: 7}, {x: 7, y: 7}
+    ];
+
+    let currentPixel = 0;
+    let t = 0;
+    let animId: number;
+
+    const animate = () => {
+      t++;
+      if (t % 5 === 0) {
+        ctx.fillStyle = "rgba(10, 10, 20, 0.15)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const scale = 5;
+        const offsetX = (canvas.width - 11 * scale) / 2;
+        const offsetY = (canvas.height - 8 * scale) / 2;
+
+        for (let i = 0; i < currentPixel; i++) {
+          const p = pixels[i];
+          ctx.fillStyle = `hsl(${(280 + i * 3) % 360}, 85%, 65%)`;
+          ctx.fillRect(offsetX + p.x * scale, offsetY + p.y * scale, scale - 1, scale - 1);
+        }
+
+        currentPixel = (currentPixel + 1) % (pixels.length + 15);
+      }
+      animId = requestAnimationFrame(animate);
+    };
+
+    animate();
+    return () => cancelAnimationFrame(animId);
+  }, [ref]);
+}
+
+function useTetrisViz(ref: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const container = ref.current;
+    if (!container) return;
+    const canvas = document.createElement("canvas");
+    canvas.width = container.offsetWidth || 400;
+    canvas.height = 80;
+    container.innerHTML = "";
+    container.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animId: number;
+    let frame = 0;
+    const colors = ["#06b6d4", "#8b5cf6", "#ec4899", "#fbbf24", "#10b981"];
+    let blockY = -2;
+    let blockX = 4;
+    let colorIdx = 0;
+
+    const grid = Array(4).fill(0).map(() => Array(10).fill(0));
+    grid[3] = [1, 1, 2, 2, 0, 0, 3, 3, 4, 4];
+    grid[2] = [0, 1, 0, 2, 0, 0, 3, 0, 4, 0];
+
+    const animate = () => {
+      frame++;
+      if (frame % 15 === 0) {
+        blockY++;
+        if (blockY > 3) {
+          blockY = -2;
+          colorIdx = (colorIdx + 1) % colors.length;
+          if (Math.random() < 0.5) {
+            grid[3] = [1, 1, 2, 2, 0, 0, 3, 3, 4, 4];
+          }
+        }
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(10, 10, 20, 0.15)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const cellSize = 12;
+      const offsetX = (canvas.width - 10 * cellSize) / 2;
+      const offsetY = (canvas.height - 4 * cellSize) / 2;
+
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 10; c++) {
+          if (grid[r][c] > 0) {
+            ctx.fillStyle = colors[grid[r][c] - 1];
+            ctx.fillRect(offsetX + c * cellSize, offsetY + r * cellSize, cellSize - 1, cellSize - 1);
+          }
+        }
+      }
+
+      const tShape = [
+        {x: 0, y: 0}, {x: -1, y: 0}, {x: 1, y: 0}, {x: 0, y: -1}
+      ];
+
+      tShape.forEach(p => {
+        const px = blockX + p.x;
+        const py = blockY + p.y;
+        if (px >= 0 && px < 10 && py >= 0 && py < 4) {
+          ctx.fillStyle = colors[colorIdx];
+          ctx.fillRect(offsetX + px * cellSize, offsetY + py * cellSize, cellSize - 1, cellSize - 1);
+        }
+      });
+
+      animId = requestAnimationFrame(animate);
+    };
+
+    animate();
+    return () => cancelAnimationFrame(animId);
+  }, [ref]);
+}
+
 // ─── Project card component ───
 const ProjectCard = ({ project }: { project: Project }) => {
   const vizRef = useRef<HTMLDivElement>(null);
@@ -186,12 +440,18 @@ const ProjectCard = ({ project }: { project: Project }) => {
   if (project.vizType === "neural") useNeuralViz(vizRef);
   if (project.vizType === "bus") useBusViz(vizRef);
   if (project.vizType === "ml") useMLViz(vizRef);
+  if (project.vizType === "compiler") useCompilerViz(vizRef);
+  if (project.vizType === "tetris") useTetrisViz(vizRef);
+  if (project.vizType === "emergency") useEmergencyViz(vizRef);
 
   const vizBg: Record<string, string> = {
     neural: "rgba(6,182,212,0.04)",
     bus: "rgba(139,92,246,0.04)",
     ml: "rgba(236,72,153,0.04)",
     asm: "rgba(251,191,36,0.04)",
+    compiler: "rgba(167,139,250,0.04)",
+    tetris: "rgba(236,72,153,0.04)",
+    emergency: "rgba(6,182,212,0.04)",
   };
 
   const vizBorder: Record<string, string> = {
@@ -199,6 +459,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
     bus: "rgba(139,92,246,0.1)",
     ml: "rgba(236,72,153,0.1)",
     asm: "rgba(251,191,36,0.1)",
+    compiler: "rgba(167,139,250,0.1)",
+    tetris: "rgba(236,72,153,0.1)",
+    emergency: "rgba(6,182,212,0.1)",
   };
 
   return (

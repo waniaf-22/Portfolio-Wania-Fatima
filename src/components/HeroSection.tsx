@@ -26,6 +26,7 @@ const marqueeChips = [
 const HeroSection = () => {
   const heroCanvasRef = useRef<HTMLCanvasElement>(null);
   const [typedText, setTypedText] = useState("");
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   // ─── Typing animation ───
   useEffect(() => {
@@ -206,7 +207,7 @@ const HeroSection = () => {
         </div>
 
         {/* Actions */}
-        <div className="flex flex-wrap justify-center gap-5 fade-in d5">
+        <div className="flex flex-wrap justify-center gap-5 fade-in d5 relative">
           <a
             href="#projects"
             className="px-8 py-3.5 rounded-full text-white text-[0.95rem] font-medium no-underline transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(139,92,246,0.4)]"
@@ -214,12 +215,51 @@ const HeroSection = () => {
           >
             Explore Work
           </a>
+          
           <a
             href="#contact"
             className="px-8 py-3.5 rounded-full text-[var(--white)] text-[0.95rem] font-medium border border-[var(--dark-border)] no-underline transition-all duration-300 hover:border-[var(--cyan)] hover:bg-[rgba(6,182,212,0.05)] hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(6,182,212,0.2)] bg-[rgba(5,5,5,0.4)] backdrop-blur-md"
           >
             Let's Talk
           </a>
+
+          {/* Resume Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setResumeOpen(!resumeOpen)}
+              className="px-8 py-3.5 rounded-full text-[var(--white)] text-[0.95rem] font-medium border border-[var(--dark-border)] transition-all duration-300 hover:border-[var(--purple)] hover:bg-[rgba(139,92,246,0.05)] hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(139,92,246,0.2)] bg-[rgba(5,5,5,0.4)] backdrop-blur-md flex items-center gap-2 cursor-pointer"
+            >
+              Resume <i className={`fa-solid fa-chevron-down text-[0.75rem] transition-transform duration-300 ${resumeOpen ? 'rotate-180' : ''}`}></i>
+            </button>
+            
+            {resumeOpen && (
+              <>
+                {/* Click outside backdrop */}
+                <div className="fixed inset-0 z-40" onClick={() => setResumeOpen(false)} />
+                
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 rounded-2xl border border-[var(--dark-border)] bg-[rgba(10,10,20,0.95)] backdrop-blur-xl p-2 shadow-2xl z-50">
+                  <a 
+                    href="https://drive.google.com/file/d/1EDTXrWOniJ-aob4JU4o_SmXcXg_u6ufz/view?usp=drive_link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => setResumeOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-[0.85rem] text-[var(--lg)] hover:text-white hover:bg-[rgba(139,92,246,0.15)] rounded-xl no-underline transition-colors duration-200"
+                  >
+                    <i className="fa-solid fa-code text-[var(--cyan)] text-base"></i> Tech Resume
+                  </a>
+                  <a 
+                    href="https://drive.google.com/file/d/1D4qV5cyxbEt3fi-V-ywjcWauZrxF0Ewo/view?usp=drive_link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => setResumeOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-[0.85rem] text-[var(--lg)] hover:text-white hover:bg-[rgba(236,72,153,0.15)] rounded-xl no-underline transition-colors duration-200"
+                  >
+                    <i className="fa-solid fa-bullhorn text-[var(--pink)] text-base"></i> Media Resume
+                  </a>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
 

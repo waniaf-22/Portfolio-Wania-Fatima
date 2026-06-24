@@ -40,18 +40,46 @@ const Navbar = () => {
       </a>
 
       {/* Desktop links */}
-      <ul className="hidden md:flex gap-8 list-none">
-        {navItems.map((item) => (
-          <li key={item.href}>
-            <a
-              href={item.href}
-              className="text-[var(--lg)] text-[0.85rem] tracking-wider hover:text-[var(--white)] transition-colors duration-300 no-underline"
+      <div className="hidden md:flex items-center gap-8">
+        <ul className="flex gap-8 list-none m-0 p-0">
+          {navItems.map((item) => (
+            <li key={item.href}>
+              <a
+                href={item.href}
+                className="text-[var(--lg)] text-[0.85rem] tracking-wider hover:text-[var(--white)] transition-colors duration-300 no-underline"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* Resume Dropdown */}
+        <div className="relative group">
+          <button className="px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase border border-[var(--dark-border)] hover:border-[var(--purple)] bg-[rgba(255,255,255,0.02)] text-[var(--white)] transition-all duration-300 flex items-center gap-1.5 cursor-pointer">
+            Resume <i className="fa-solid fa-chevron-down text-[0.65rem] transition-transform duration-300 group-hover:rotate-180"></i>
+          </button>
+          
+          <div className="absolute right-0 mt-2 w-44 rounded-xl border border-[var(--dark-border)] bg-[rgba(10,10,20,0.95)] backdrop-blur-xl p-1.5 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+            <a 
+              href="https://drive.google.com/file/d/1EDTXrWOniJ-aob4JU4o_SmXcXg_u6ufz/view?usp=drive_link" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2.5 text-xs text-[var(--lg)] hover:text-white hover:bg-[rgba(139,92,246,0.15)] rounded-lg no-underline transition-colors duration-200"
             >
-              {item.label}
+              <i className="fa-solid fa-code text-[var(--cyan)]"></i> Tech Resume
             </a>
-          </li>
-        ))}
-      </ul>
+            <a 
+              href="https://drive.google.com/file/d/1D4qV5cyxbEt3fi-V-ywjcWauZrxF0Ewo/view?usp=drive_link" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2.5 text-xs text-[var(--lg)] hover:text-white hover:bg-[rgba(236,72,153,0.15)] rounded-lg no-underline transition-colors duration-200"
+            >
+              <i className="fa-solid fa-bullhorn text-[var(--pink)]"></i> Media Resume
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* Mobile hamburger */}
       <button
@@ -65,7 +93,7 @@ const Navbar = () => {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="absolute top-full left-0 right-0 bg-[rgba(5,5,5,0.95)] backdrop-blur-xl border-b border-[var(--dark-border)] md:hidden">
-          <ul className="flex flex-col py-4 list-none">
+          <ul className="flex flex-col py-4 list-none m-0 p-0">
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
@@ -77,6 +105,29 @@ const Navbar = () => {
                 </a>
               </li>
             ))}
+            <li className="border-t border-[var(--dark-border)] mt-2 pt-3 px-6 pb-2">
+              <span className="block text-[0.7rem] uppercase tracking-wider text-[var(--gray)] mb-2">Resumes</span>
+              <div className="flex flex-col gap-2">
+                <a 
+                  href="https://drive.google.com/file/d/1EDTXrWOniJ-aob4JU4o_SmXcXg_u6ufz/view?usp=drive_link" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-[var(--lg)] hover:text-white text-sm no-underline flex items-center gap-2 py-1"
+                >
+                  <i className="fa-solid fa-code text-[var(--cyan)]"></i> Tech Resume
+                </a>
+                <a 
+                  href="https://drive.google.com/file/d/1D4qV5cyxbEt3fi-V-ywjcWauZrxF0Ewo/view?usp=drive_link" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-[var(--lg)] hover:text-white text-sm no-underline flex items-center gap-2 py-1"
+                >
+                  <i className="fa-solid fa-bullhorn text-[var(--pink)]"></i> Media Resume
+                </a>
+              </div>
+            </li>
           </ul>
         </div>
       )}

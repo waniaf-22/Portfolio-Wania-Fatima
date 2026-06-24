@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
+import profileImg from "@/assets/wania-profile.jpg";
 
 const stats = [
-  { value: "12+", label: "Repositories" },
+  { value: "9", label: "Repositories" },
   { value: "Python", label: "Top Language" },
   { value: "AI/ML", label: "Focus Area" },
   { value: "Active", label: "Status" },
@@ -42,11 +43,8 @@ const GithubSection = () => {
       >
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
-          <div
-            className="w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold"
-            style={{ background: "var(--grad1)" }}
-          >
-            W
+          <div className="w-14 h-14 rounded-full overflow-hidden border border-[rgba(255,255,255,0.1)] flex-shrink-0 bg-[var(--black)]">
+            <img src={profileImg} alt="Wania Fatima" className="w-full h-full object-cover" />
           </div>
           <div>
             <div className="text-xl font-display font-bold">Wania Fatima</div>

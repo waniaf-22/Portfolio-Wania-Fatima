@@ -2,7 +2,7 @@ const Footer = () => (
   <footer
     className="border-t border-[var(--dark-border)] px-6 md:px-12 py-10 flex flex-col md:flex-row items-center justify-between gap-4 max-w-[1400px] mx-auto"
   >
-    <div className="text-[0.82rem] text-[var(--gray)]">© 2025 Wania Fatima · Built with intelligence.</div>
+    <div className="text-[0.82rem] text-[var(--gray)]">© {new Date().getFullYear()} Wania Fatima · Built with intelligence.</div>
     <div className="flex gap-6">
       <a
         href="https://github.com/waniaf-22"

@@ -13,7 +13,7 @@ const experiences = [
   },
   {
     company: "PROCOM 2026, FAST University",
-    period: "Sep 2025 – Present",
+    period: "Sep 2025 – Jun 2026",
     title: "Director, Media and Promotions",
     bullets: [
       "Lead digital strategy and brand management for one of Pakistan's largest student tech competitions across 20+ universities.",
