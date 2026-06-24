@@ -1,7 +1,14 @@
 const courses = [
-  "Data Structures", "Algorithms", "AI / ML", "OOP",
-  "Computer Architecture", "Database Systems", "Operating Systems",
-  "Software Engineering", "Web Dev", "Assembly",
+  "Artificial Intelligence",
+  "Recommender Systems",
+  "Compiler Construction",
+  "Design & Analysis of Algorithms",
+  "Data Structures",
+  "Database Systems",
+  "Operating Systems",
+  "Computer Networks",
+  "Software Engineering",
+  "Object Oriented Programming",
 ];
 
 const EducationSection = () => {
