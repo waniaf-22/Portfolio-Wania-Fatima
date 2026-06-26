@@ -38,7 +38,7 @@ const techGroups = [
   },
   {
     label: "Databases",
-    tools: ["MySQL", "MongoDB", "Firebase", "PostgreSQL"],
+    tools: ["MySQL", "MongoDB", "Supabase"],
   },
   {
     label: "DevOps & Tools",
