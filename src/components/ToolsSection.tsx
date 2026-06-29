@@ -25,24 +25,28 @@ const socialGroups = [
 
 const techGroups = [
   {
+    label: "Languages",
+    tools: ["C", "C++", "Python", "TypeScript", "JavaScript"],
+  },
+  {
     label: "Frontend",
-    tools: ["React", "Next.js", "TailwindCSS", "Vite", "Framer Motion"],
+    tools: ["React", "TanStack Start", "Tailwind CSS", "Shadcn UI"],
   },
   {
     label: "Backend",
-    tools: ["Node.js", "Express.js", "FastAPI"],
+    tools: ["Flask", "Node.js", "JWT", "REST APIs"],
   },
   {
-    label: "AI & ML Libraries",
-    tools: ["PyTorch", "TensorFlow", "scikit-learn", "LangChain", "OpenAI API", "Jupyter", "Anaconda"],
+    label: "Database",
+    tools: ["PostgreSQL", "Prisma", "Supabase"],
   },
   {
-    label: "Databases",
-    tools: ["MySQL", "MongoDB", "Supabase"],
+    label: "AI & ML",
+    tools: ["OpenAI API", "PyTorch", "Scikit-learn"],
   },
   {
-    label: "DevOps & Tools",
-    tools: ["Git", "GitHub", "Docker", "VS Code", "Postman", "Vercel", "NPM", "Linux"],
+    label: "Other",
+    tools: ["Raylib", "Figma", "Git", "GitHub"],
   },
 ];
 

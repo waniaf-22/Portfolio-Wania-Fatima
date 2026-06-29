@@ -6,12 +6,20 @@ interface Project {
   tags: string[];
   badge?: string;
   topColor: string;
-  vizType: "neural" | "bus" | "ml" | "asm" | "compiler" | "tetris" | "emergency";
+  vizType: "neural" | "bus" | "ml" | "compiler" | "tetris" | "emergency" | "crm" | "uav";
   githubUrl?: string;
   liveDemoUrl?: string;
 }
 
 const projects: Project[] = [
+  {
+    name: "TechServe AI CRM",
+    desc: "A full-stack AI-powered CRM with JWT auth, customer & ticket management, OpenAI-driven sentiment & urgency analysis, Recharts dashboards, and automated email notifications — built on TanStack Start, PostgreSQL, and Prisma.",
+    tags: ["TanStack Start", "PostgreSQL", "Prisma", "OpenAI API", "TypeScript", "Shadcn UI"],
+    topColor: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+    vizType: "crm",
+    githubUrl: "https://github.com/waniaf-22/CRM-PROJECT-AI",
+  },
   {
     name: "Waasta AI",
     desc: "An LLM-powered emergency medical routing system that dynamically connects patients to available hospitals in real time. Uses prompt engineering, live hospital APIs, and intelligent triage logic to cut emergency response time.",
@@ -30,12 +38,12 @@ const projects: Project[] = [
     githubUrl: "https://github.com/waniaf-22/SwiftBus-SE-Project",
   },
   {
-    name: "Movie Recommendation System",
-    desc: "A collaborative filtering recommendation engine built with PyTorch. Learns latent user-item embeddings to surface personalized suggestions with measurable accuracy gains over baseline heuristics.",
-    tags: ["PyTorch", "Collaborative Filtering", "Machine Learning", "Embeddings"],
-    topColor: "linear-gradient(90deg, #ec4899, #f97316)",
-    vizType: "ml",
-    githubUrl: "https://github.com/waniaf-22/Movie-Recommendation-system",
+    name: "PixelForge Compiler",
+    desc: "A browser-based IDE and 6-phase compiler for a custom retro pixel-art DSL. Lexes, parses (recursive-descent AST), validates semantics, generates IR, runs dead-code optimization, and target-executes on an HTML5 Canvas VM.",
+    tags: ["Compiler Design", "Domain-Specific Languages (DSLs)", "Python / Flask", "HTML5 Canvas VM", "JavaScript"],
+    topColor: "linear-gradient(135deg, #a78bfa, #ec4899)",
+    vizType: "compiler",
+    githubUrl: "https://github.com/waniaf-22/PixelForge-Compiler",
   },
   {
     name: "Neon Tetris",
@@ -46,20 +54,20 @@ const projects: Project[] = [
     githubUrl: "https://github.com/waniaf-22/cpp-neon-tetris-raylib",
   },
   {
-    name: "PixelForge Compiler",
-    desc: "A browser-based IDE and 6-phase compiler for a custom retro pixel-art DSL. Lexes, parses (recursive-descent AST), validates semantics, generates IR, runs dead-code optimization, and target-executes on an HTML5 Canvas VM.",
-    tags: ["Compiler Design", "Domain-Specific Languages (DSLs)", "Python / Flask", "HTML5 Canvas VM", "JavaScript"],
-    topColor: "linear-gradient(135deg, #a78bfa, #ec4899)",
-    vizType: "compiler",
-    githubUrl: "https://github.com/waniaf-22/PixelForge-Compiler",
+    name: "Movie Recommendation System",
+    desc: "A collaborative filtering recommendation engine built with PyTorch. Learns latent user-item embeddings to surface personalized suggestions with measurable accuracy gains over baseline heuristics.",
+    tags: ["PyTorch", "Collaborative Filtering", "Machine Learning", "Embeddings"],
+    topColor: "linear-gradient(90deg, #ec4899, #f97316)",
+    vizType: "ml",
+    githubUrl: "https://github.com/waniaf-22/Aurora-Cinema-Lab-Movie-Recommendation-via-Matrix-Factorization-in-PyTorch",
   },
   {
-    name: "Parking Management System",
-    desc: "A low-level parking management system written entirely in x86 Assembly. Interfaces directly with hardware interrupts and memory addresses — demonstrating mastery of the most fundamental layer of computing.",
-    tags: ["x86 Assembly", "Low-Level Programming", "Hardware Interrupts"],
-    topColor: "linear-gradient(90deg, #10b981, #06b6d4)",
-    vizType: "asm",
-    githubUrl: "https://github.com/waniaf-22/Parking-Management-System",
+    name: "Smart UAV Monitoring Dashboard",
+    desc: "A high-fidelity 12-screen Figma prototype for a UAV ground control station — evaluated against Nielsen's 10 Usability Heuristics and Shneiderman's 8 Golden Rules, with two iteration cycles and WCAG 2.1 AA accessibility compliance.",
+    tags: ["Figma", "HCI", "UX Design", "Prototyping", "Accessibility"],
+    topColor: "linear-gradient(135deg, #10b981, #3b82f6)",
+    vizType: "uav",
+    githubUrl: "https://github.com/waniaf-22/Smart-UAV-Monitoring-Dashboard",
   },
 ];
 
@@ -433,6 +441,186 @@ function useTetrisViz(ref: React.RefObject<HTMLDivElement | null>) {
   }, [ref]);
 }
 
+function useCRMViz(ref: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const container = ref.current;
+    if (!container) return;
+    const canvas = document.createElement("canvas");
+    canvas.width = container.offsetWidth || 400;
+    canvas.height = 80;
+    container.innerHTML = "";
+    container.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let t = 0;
+    let animId: number;
+    const bars = [
+      { label: "MRR",  target: 0.75, color: "#6366f1" },
+      { label: "CSAT", target: 0.88, color: "#8b5cf6" },
+      { label: "OPEN", target: 0.50, color: "#a78bfa" },
+      { label: "RES",  target: 0.62, color: "#c4b5fd" },
+      { label: "SLA",  target: 0.82, color: "#818cf8" },
+    ];
+
+    const animate = () => {
+      t++;
+      ctx.clearRect(0, 0, canvas.width, 80);
+      const barW = 24, gap = 14;
+      const totalW = bars.length * (barW + gap) - gap;
+      const startX = (canvas.width - totalW) / 2;
+      const maxH = 50, baseY = 68;
+
+      bars.forEach((bar, i) => {
+        const progress = Math.min(t / 80, 1);
+        const wave = Math.sin(t * 0.04 + i * 0.8) * 2;
+        const h = bar.target * maxH * progress + wave;
+        const x = startX + i * (barW + gap);
+        const y = baseY - h;
+        ctx.fillStyle = "rgba(99,102,241,0.06)";
+        ctx.fillRect(x, baseY - maxH, barW, maxH);
+        const grad = ctx.createLinearGradient(0, y, 0, baseY);
+        grad.addColorStop(0, bar.color + "cc");
+        grad.addColorStop(1, bar.color + "33");
+        ctx.fillStyle = grad;
+        ctx.fillRect(x, y, barW, h);
+        ctx.fillStyle = "rgba(255,255,255,0.3)";
+        ctx.font = "6px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(bar.label, x + barW / 2, 78);
+      });
+
+      const pulse = (Math.sin(t * 0.07) + 1) / 2;
+      ctx.beginPath();
+      ctx.arc(canvas.width - 18, 14, 3 + pulse * 2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(99,102,241,${0.2 + pulse * 0.3})`;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(canvas.width - 18, 14, 3, 0, Math.PI * 2);
+      ctx.fillStyle = "#6366f1";
+      ctx.fill();
+      ctx.fillStyle = "rgba(255,255,255,0.4)";
+      ctx.font = "7px sans-serif";
+      ctx.textAlign = "right";
+      ctx.fillText("AI", canvas.width - 25, 18);
+
+      animId = requestAnimationFrame(animate);
+    };
+    animate();
+    return () => cancelAnimationFrame(animId);
+  }, [ref]);
+}
+
+function useUAVViz(ref: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const container = ref.current;
+    if (!container) return;
+    const canvas = document.createElement("canvas");
+    canvas.width = container.offsetWidth || 400;
+    canvas.height = 80;
+    container.innerHTML = "";
+    container.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let angle = 0;
+    let animId: number;
+    const cx = 55, cy = 40, r = 34;
+    const blips = [
+      { a: 0.9, d: 0.55, decay: 0 },
+      { a: 2.5, d: 0.75, decay: 0 },
+      { a: 4.2, d: 0.40, decay: 0 },
+    ];
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, 80);
+
+      [0.33, 0.66, 1].forEach((s, i) => {
+        ctx.strokeStyle = `rgba(16,185,129,${0.08 + i * 0.06})`;
+        ctx.lineWidth = 0.7;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r * s, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+
+      ctx.strokeStyle = "rgba(16,185,129,0.1)";
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(cx - r, cy); ctx.lineTo(cx + r, cy);
+      ctx.moveTo(cx, cy - r); ctx.lineTo(cx, cy + r);
+      ctx.stroke();
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, angle - 0.6, angle);
+      ctx.closePath();
+      const g = ctx.createLinearGradient(cx, cy, cx + Math.cos(angle) * r, cy + Math.sin(angle) * r);
+      g.addColorStop(0, "rgba(16,185,129,0.0)");
+      g.addColorStop(1, "rgba(16,185,129,0.25)");
+      ctx.fillStyle = g;
+      ctx.fill();
+      ctx.restore();
+
+      ctx.strokeStyle = "rgba(16,185,129,0.8)";
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r);
+      ctx.stroke();
+
+      blips.forEach((blip) => {
+        const diff = ((angle - blip.a) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+        if (diff < 0.08) blip.decay = 1;
+        blip.decay *= 0.982;
+        if (blip.decay > 0.05) {
+          const bx = cx + Math.cos(blip.a) * r * blip.d;
+          const by = cy + Math.sin(blip.a) * r * blip.d;
+          ctx.fillStyle = `rgba(16,185,129,${blip.decay * 0.9})`;
+          ctx.beginPath();
+          ctx.arc(bx, by, 2.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = `rgba(16,185,129,${blip.decay * 0.4})`;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.arc(bx, by, 5 + (1 - blip.decay) * 3, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      });
+
+      ctx.fillStyle = "#10b981";
+      ctx.beginPath();
+      ctx.arc(cx, cy, 2, 0, Math.PI * 2);
+      ctx.fill();
+
+      const metrics = [
+        { label: "ALT", value: "142m" },
+        { label: "SPD", value: "18m/s" },
+        { label: "BAT", value: "87%" },
+        { label: "GPS", value: "12sat" },
+      ];
+      const tx = cx + r + 16;
+      const colW = (canvas.width - tx - 10) / 2;
+      metrics.forEach((m, i) => {
+        const mx = tx + (i % 2) * colW;
+        const my = 18 + Math.floor(i / 2) * 30;
+        ctx.fillStyle = "rgba(16,185,129,0.5)";
+        ctx.font = "bold 6px monospace";
+        ctx.textAlign = "left";
+        ctx.fillText(m.label, mx, my);
+        ctx.fillStyle = "rgba(255,255,255,0.7)";
+        ctx.font = "bold 10px monospace";
+        ctx.fillText(m.value, mx, my + 12);
+      });
+
+      angle = (angle + 0.025) % (Math.PI * 2);
+      animId = requestAnimationFrame(animate);
+    };
+    animate();
+    return () => cancelAnimationFrame(animId);
+  }, [ref]);
+}
+
 // ─── Project card component ───
 const ProjectCard = ({ project }: { project: Project }) => {
   const vizRef = useRef<HTMLDivElement>(null);
@@ -443,25 +631,29 @@ const ProjectCard = ({ project }: { project: Project }) => {
   if (project.vizType === "compiler") useCompilerViz(vizRef);
   if (project.vizType === "tetris") useTetrisViz(vizRef);
   if (project.vizType === "emergency") useEmergencyViz(vizRef);
+  if (project.vizType === "crm") useCRMViz(vizRef);
+  if (project.vizType === "uav") useUAVViz(vizRef);
 
   const vizBg: Record<string, string> = {
     neural: "rgba(6,182,212,0.04)",
     bus: "rgba(139,92,246,0.04)",
     ml: "rgba(236,72,153,0.04)",
-    asm: "rgba(251,191,36,0.04)",
     compiler: "rgba(167,139,250,0.04)",
     tetris: "rgba(236,72,153,0.04)",
     emergency: "rgba(6,182,212,0.04)",
+    crm: "rgba(99,102,241,0.04)",
+    uav: "rgba(16,185,129,0.04)",
   };
 
   const vizBorder: Record<string, string> = {
     neural: "rgba(6,182,212,0.1)",
     bus: "rgba(139,92,246,0.1)",
     ml: "rgba(236,72,153,0.1)",
-    asm: "rgba(251,191,36,0.1)",
     compiler: "rgba(167,139,250,0.1)",
     tetris: "rgba(236,72,153,0.1)",
     emergency: "rgba(6,182,212,0.1)",
+    crm: "rgba(99,102,241,0.1)",
+    uav: "rgba(16,185,129,0.1)",
   };
 
   return (
@@ -480,11 +672,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
         className="h-20 rounded-lg mb-6 overflow-hidden flex items-center justify-center"
         style={{ background: vizBg[project.vizType], border: `1px solid ${vizBorder[project.vizType]}` }}
       >
-        {project.vizType === "asm" && (
-          <div className="font-mono text-[0.7rem] text-[rgba(251,191,36,0.6)] text-center px-2 leading-relaxed">
-            MOV AX, 01h<br />CMP BX, [SLOT]<br />JE PARK_CAR<br />INT 21h<br />HLT
-          </div>
-        )}
+
       </div>
 
       <h3 className="text-xl font-display font-bold mb-2">{project.name}</h3>

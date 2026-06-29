@@ -9,7 +9,6 @@ import MetricsSection from "@/components/MetricsSection";
 import ToolsSection from "@/components/ToolsSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
-import CreativeSection from "@/components/CreativeSection";
 import LeadershipSection from "@/components/LeadershipSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -60,8 +59,6 @@ const Index = () => {
         <SkillsSection />
         <Divider />
         <ProjectsSection />
-        <Divider />
-        <CreativeSection />
         <Divider />
         <LeadershipSection />
         <Divider />

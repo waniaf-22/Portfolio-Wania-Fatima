@@ -14,15 +14,13 @@ const CustomCursor = () => {
     const onMouseMove = (e: MouseEvent) => {
       mx = e.clientX;
       my = e.clientY;
-      cursor.style.left = mx + "px";
-      cursor.style.top = my + "px";
+      cursor.style.transform = `translate(calc(${mx}px - 50%), calc(${my}px - 50%))`;
     };
 
     const animRing = () => {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      ring.style.left = rx + "px";
-      ring.style.top = ry + "px";
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.transform = `translate(calc(${rx}px - 50%), calc(${ry}px - 50%))`;
       requestAnimationFrame(animRing);
     };
 
